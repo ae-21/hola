@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carnicería Aylín — Gestión de Productos</title>
+  <link rel="icon" href="img/favicon.ico">
+
+  <!-- ====== CSS (inline) ====== -->
+  <style>
+  * { box-sizing: border-box; }
+  :root { --p:#7a1fa2; --p-600:#5e177d; --bg:#faf9fb; --txt:#222; --muted:#6b6b6b; --danger:#b00020; }
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--txt);font-family:system-ui,-apple-system,Arial,sans-serif}
+  .site-header,.site-footer{ text-align:center; padding:16px; background:var(--p); color:#fff}
+  .container{ max-width:1100px; margin:auto; padding:16px}
+  .card{ background:#fff; border:1px solid #e6e1ea; border-radius:12px; padding:16px; margin:16px 0; box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  .menu{ display:flex; gap:12px; list-style:disc inside; padding-left:0; margin:0 0 12px}
+  .menu a{ text-decoration:none; color:var(--p-600); font-weight:600}
+  .grid{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px}
+  .campo{ display:flex; flex-direction:column; gap:6px}
+  .campo-full{ grid-column:1/-1}
+  .label{ font-weight:600}
+  .opciones{ display:flex; gap:12px; flex-wrap:wrap}
+  .ayuda{ color:var(--muted); font-size:.85rem}
+  .error{ color:var(--danger); font-size:.85rem; min-height:1.1em}
+  input,select,textarea{ padding:10px; border:1px solid #d6cfe0; border-radius:8px; font:inherit}
+  input:focus,select:focus,textarea:focus{ outline:3px solid #e7d4f3; border-color:var(--p-600)}
+  .acciones{ display:flex; gap:10px; margin-top:10px}
+  button{ padding:10px 14px; border:0; border-radius:8px; cursor:pointer; font-weight:600; background:var(--p); color:#fff}
+  button.secundario{ background:#555}
+  button.peligro{ background:var(--danger)}
+  .oculto{ display:none !important}
+  .sr-only{ position:absolute; left:-9999px}
+  .filtros{ display:flex; gap:10px; align-items:center; margin-bottom:10px; flex-wrap:wrap}
+  .tabla-wrap{ overflow:auto}
+  .tabla{ width:100%; border-collapse:collapse}
+  .tabla th,.tabla td{ border-bottom:1px solid #eee; padding:10px; text-align:left}
+  .tabla tbody tr:hover{ background:#faf5ff}
+  .nota{ color:var(--muted)}
+  @media (max-width:720px){ .grid{ grid-template-columns:1fr } }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <h1>Carnicería Aylín</h1>
+  <p>Mini sistema CRUD para el catálogo (DEWE‑04 • 2.2.1)</p>
+</header>
+
+<main class="container">
+  <nav aria-label="Menú principal">
+    <ul class="menu">
+      <li><a href="#formulario">Nuevo/Editar</a></li>
+      <li><a href="#lista">Inventario</a></li>
+      <li><a href="#ayuda">Ayuda</a></li>
+    </ul>
+  </nav>
+
+  <section id="formulario" class="card" aria-labelledby="titulo-form">
+    <h2 id="titulo-form">Formulario de producto</h2>
+
+    <form id="frmProducto" novalidate>
+      <div class="grid">
+        <div class="campo">
+          <label for="nombre">Nombre del producto *</label>
+          <input id="nombre" name="nombre" type="text" required minlength="3" maxlength="50" placeholder="Diezmillo, Pechuga, Costilla…"/>
+          <small class="error" id="err-nombre"></small>
+        </div>
+
+        <div class="campo">
+          <label for="categoria">Categoría *</label>
+          <select id="categoria" name="categoria" required>
+            <option value="">— Selecciona —</option>
+            <option>Res</option><option>Cerdo</option><option>Pollo</option><option>Embutidos</option>
+          </select>
+          <small class="error" id="err-categoria"></small>
+        </div>
+
+        <div class="campo">
+          <label for="corte">Tipo de corte</label>
+          <input id="corte" name="corte" type="text" maxlength="40" placeholder="New York, Milanesa…"/>
+        </div>
+
+        <div class="campo">
+          <label for="precio">Precio *</label>
+          <input id="precio" name="precio" type="number" step="0.01" min="1" required placeholder="Ej. 159.90"/>
+          <small class="ayuda">En pesos MXN</small>
+          <small class="error" id="err-precio"></small>
+        </
